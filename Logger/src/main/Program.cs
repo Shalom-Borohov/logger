@@ -12,12 +12,13 @@ namespace Logger
             string filePath = "logs.csv";
             string encryptedFilePath = "encryptedLogs.csv";
             var dateTime = new DateTime(2023, 6, 26, 15, 29, 57);
+            var dateTimeForEncrypted = new DateTime(2023, 07, 02, 15, 53, 02);
 
             var csvFileLog = new CsvFileLog { FilePath = filePath };
             var encryptedCsvFileLog = new EncryptedCsvFileLog { FilePath = encryptedFilePath };
 
-            encryptedCsvFileLog.WriteEntry(new LogEntry { DateAndTime = DateTime.Now, Message = "Balagan Gadol", Severity = Severity.Critical });
-            // csvFileLog.ReadEntries(dateTime).ToList().ForEach(Console.WriteLine);
+            //encryptedCsvFileLog.WriteEntry(new LogEntry { DateAndTime = DateTime.Now, Message = "Blagan Gadol meod meod meod", Severity = Severity.Critical });
+            encryptedCsvFileLog.ReadEntries(dateTimeForEncrypted).ToList().ForEach(Console.WriteLine);
         }
     }
 }
