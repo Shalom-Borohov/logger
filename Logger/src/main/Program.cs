@@ -16,9 +16,17 @@ namespace Logger
 
             var csvFileLog = new CsvFileLog { FilePath = filePath };
             var encryptedCsvFileLog = new EncryptedCsvFileLog { FilePath = encryptedFilePath };
+            var eventLog = EventLog.GetInstance();
+
+            eventLog.WriteEntry(
+                new LogEntry { DateAndTime = DateTime.Now, Message = "Wallak everything is A-OK", Severity = Severity.Information });
+
+            eventLog.ClearLog();
 
             //encryptedCsvFileLog.WriteEntry(new LogEntry { DateAndTime = DateTime.Now, Message = "Blagan Gadol meod meod meod", Severity = Severity.Critical });
-            encryptedCsvFileLog.ReadEntries(dateTimeForEncrypted).ToList().ForEach(Console.WriteLine);
+            //encryptedCsvFileLog.ReadEntries(dateTimeForEncrypted).ToList().ForEach(Console.WriteLine);
+
+
         }
     }
 }

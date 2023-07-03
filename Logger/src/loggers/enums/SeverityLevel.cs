@@ -4,13 +4,11 @@
     {
         public enum Severity
         {
-            Trace,
-            Debug,
             Information,
-            Warning,
             Error,
-            Critical,
-            None
+            Verbose,
+            Warning,
+            Critical
         }
     }
 }
