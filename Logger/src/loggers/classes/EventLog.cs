@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using static Logger.src.loggers.enums.SeverityLevel;
 using static Logger.src.loggers.enums.TaskCategory;
-using System.Linq;
 
 namespace Logger.src.loggers.classes
 {
