@@ -1,9 +1,7 @@
 ﻿using Logger.src.loggers.classes;
 using System;
-using System.Linq;
-using static Logger.src.loggers.enums.SeverityLevel;
 
-namespace Logger
+namespace Logger.src.main.classes
 {
     internal class Program
     {
@@ -18,16 +16,18 @@ namespace Logger
             var csvFileLog = new CsvFileLog { FilePath = filePath };
             var encryptedCsvFileLog = new EncryptedCsvFileLog { FilePath = encryptedFilePath };
             var eventLog = EventLog.GetInstance();
+            var driver = new Driver();
 
-            eventLog.WriteEntry(
-                new LogEntry { DateAndTime = DateTime.Now, Message = "Wallak everything is A-OK", Severity = Severity.Information });
+            driver.Start();
 
-            eventLog.ReadEntries(dateTimeForEventLog).ToList().ForEach(Console.WriteLine);
+
+            //eventLog.WriteEntry(
+            //    new LogEntry { DateAndTime = DateTime.Now, Message = "Wallak everything is A-OK", Severity = Severity.Information });
+
+            //eventLog.ReadEntries(dateTimeForEventLog).ToList().ForEach(Console.WriteLine);
 
             //encryptedCsvFileLog.WriteEntry(new LogEntry { DateAndTime = DateTime.Now, Message = "Blagan Gadol meod meod meod", Severity = Severity.Critical });
             //encryptedCsvFileLog.ReadEntries(dateTimeForEncrypted).ToList().ForEach(Console.WriteLine);
-
-
         }
     }
 }
