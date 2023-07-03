@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using static Logger.src.loggers.enums.SeverityLevel;
 using static Logger.src.loggers.enums.TaskCategory;
+using System.Linq;
 
 namespace Logger.src.loggers.classes
 {
@@ -37,7 +38,17 @@ namespace Logger.src.loggers.classes
 
         public IEnumerable<string> ReadEntries(DateTime dateTime)
         {
-            throw new NotImplementedException();
+            string entries = "";
+
+            foreach (EventLogEntry entry in SystemEventLog.Entries)
+            {
+                if (entry.TimeGenerated.Equals(dateTime))
+                {
+                    entries = string.Concat(entries, $"{entry.Message}{Environment.NewLine}");
+                }
+            }
+
+            return entries.Split($"{Environment.NewLine}");
         }
 
         public void WriteEntry(LogEntry entry) =>
