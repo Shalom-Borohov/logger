@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using static Logger.Loggers.Enums.SeverityLevel;
 using static Logger.Loggers.Enums.TaskCategory;
+using SystemEventLog = System.Diagnostics.EventLog;
 
 namespace Logger.Loggers.Classes
 {
@@ -20,7 +21,7 @@ namespace Logger.Loggers.Classes
 
         private int EventId = 0;
 
-        private System.Diagnostics.EventLog SystemEventLog;
+        private SystemEventLog SystemEventLog;
 
         private EventLog()
         {
@@ -29,12 +30,12 @@ namespace Logger.Loggers.Classes
 
         private void InitSourceIfNotExists()
         {
-            if (!System.Diagnostics.EventLog.SourceExists("My Log"))
+            if (!SystemEventLog.SourceExists("My Log"))
             {
-                System.Diagnostics.EventLog.CreateEventSource("Application", "My Log");
+                SystemEventLog.CreateEventSource("Application", "My Log");
             }
 
-            SystemEventLog = new System.Diagnostics.EventLog { Source = "My Log" };
+            SystemEventLog = new SystemEventLog { Source = "My Log" };
         }
 
         private static EventLog Instance;
