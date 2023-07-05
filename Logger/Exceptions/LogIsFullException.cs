@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Logger.src.Exceptions
+namespace Logger.Exceptions
 {
-    internal class LogIsFullException : Exception
+    public class LogIsFullException : Exception
     {
         public LogIsFullException() { }
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Logger.src.Exceptions
+namespace Logger.Exceptions
 {
-    internal class NoLogDefinedException : Exception
+    public class NoLogDefinedException : Exception
     {
         public NoLogDefinedException() { }
 

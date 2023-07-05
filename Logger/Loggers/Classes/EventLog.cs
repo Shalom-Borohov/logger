@@ -1,13 +1,13 @@
-﻿using Logger.src.loggers.interfaces;
+﻿using Logger.Loggers.Interfaces;
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
-using static Logger.src.loggers.enums.SeverityLevel;
-using static Logger.src.loggers.enums.TaskCategory;
+using static Logger.Loggers.Enums.SeverityLevel;
+using static Logger.Loggers.Enums.TaskCategory;
 
-namespace Logger.src.loggers.classes
+namespace Logger.Loggers.Classes
 {
-    internal class EventLog : ILog
+    public class EventLog : ILog
     {
         public Dictionary<Severity, EventLogEntryType> EntryTypeBySeverity = new Dictionary<Severity, EventLogEntryType>
             {
@@ -20,9 +20,22 @@ namespace Logger.src.loggers.classes
 
         private int EventId = 0;
 
-        private System.Diagnostics.EventLog SystemEventLog = new System.Diagnostics.EventLog { Source = "Application" };
+        private System.Diagnostics.EventLog SystemEventLog;
 
-        private EventLog() { }
+        private EventLog()
+        {
+            InitSourceIfNotExists();
+        }
+
+        private void InitSourceIfNotExists()
+        {
+            if (!System.Diagnostics.EventLog.SourceExists("My Log"))
+            {
+                System.Diagnostics.EventLog.CreateEventSource("Application", "My Log");
+            }
+
+            SystemEventLog = new System.Diagnostics.EventLog { Source = "My Log" };
+        }
 
         private static EventLog Instance;
 
@@ -37,17 +50,17 @@ namespace Logger.src.loggers.classes
 
         public IEnumerable<string> ReadEntries(DateTime dateTime)
         {
-            string entries = "";
+            var entries = "";
 
             foreach (EventLogEntry entry in SystemEventLog.Entries)
             {
-                if (entry.TimeGenerated.Equals(dateTime))
+                if (entry.TimeGenerated.ToString().Equals(dateTime.ToString()))
                 {
-                    entries = string.Concat(entries, $"{entry.Message}{Environment.NewLine}");
+                    entries = string.Concat(entries, $"{entry.Message},");
                 }
             }
 
-            return entries.Split($"{Environment.NewLine}");
+            return string.Concat($"{dateTime}{Environment.NewLine}", entries).Split(",");
         }
 
         public void WriteEntry(LogEntry entry) =>

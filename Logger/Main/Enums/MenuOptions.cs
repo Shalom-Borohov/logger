@@ -1,6 +1,6 @@
-﻿namespace Logger.src.main.enums
+﻿namespace Logger.Main.Enums
 {
-    internal class MenuOptions
+    public class MenuOptions
     {
         public enum MenuOption
         {
